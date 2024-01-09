@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-void put_str(char *str, int *len)
+void ft_putstr(char *str, int *len)
 {
     if(!str)
         str = "(null)";
@@ -9,7 +9,7 @@ void put_str(char *str, int *len)
         *len += write(1, str++, 1);
 }
 
-void    put_nbr(long long int nbr, int base, int *len)
+void    ft_putnbr(long long int nbr, int base, int *len)
 {
     char *hex;
 
@@ -21,7 +21,7 @@ void    put_nbr(long long int nbr, int base, int *len)
     }
     if(nbr >= base)
     {
-        put_nbr((nbr / base), base, len);
+        ft_putnbr((nbr / base), base, len);
         *len += write(1, &hex[nbr % base], 1);
     }
 }
@@ -41,20 +41,13 @@ int ft_printf(const char *format, ...)
             if(*format == 's')
                 put_str(va_arg(ptr, char *), &len);
             else if(*format == 'd')
-                put_nbr((long long int)va_arg(ptr, int), 10, &len);
+                ft_putnbr((long long int)va_arg(ptr, int), 10, &len);
             else if(*format == 'x')
-                put_nbr((long long int)va_arg(ptr, unsigned int), 16, &len);
+                ft_putnbr((long long int)va_arg(ptr, unsigned int), 16, &len);
         }
         else
             len += write(1, format, 1);
         format++;
     }
     return(va_end(ptr), len);
-}
-
-int main ()
-{
-    char *s = "abcasda";
-    int a = 12415125;
-    ft_printf("beinm ardmı = %s, beinm yaşsim = %d\n", s, a);
 }
