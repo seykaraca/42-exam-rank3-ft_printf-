@@ -39,7 +39,7 @@ int ft_printf(const char *format, ...)
         {
             format++;
             if(*format == 's')
-                put_str(va_arg(ptr, char *), &len);
+                ft_putstr(va_arg(ptr, char *), &len);
             else if(*format == 'd')
                 ft_putnbr((long long int)va_arg(ptr, int), 10, &len);
             else if(*format == 'x')
